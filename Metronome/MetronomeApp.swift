@@ -127,14 +127,22 @@ private final class MetronomeMenuController: NSObject {
         NSApplication.shared.mainMenu = mainMenu
     }
 
-    /// Creates the application menu containing only the Exit command.
+    /// Creates the application menu containing app visibility and Exit commands.
     ///
     /// - Returns: A top-level menu item with an application submenu.
     private func applicationMenuItem() -> NSMenuItem {
         let item = NSMenuItem()
         let menu = NSMenu(title: "EZ Metronome")
+        let hideItem = NSMenuItem(
+            title: "Hide the Metronome",
+            action: #selector(hideMetronome),
+            keyEquivalent: "h"
+        )
         let exitItem = NSMenuItem(title: "Exit", action: #selector(exitApplication), keyEquivalent: "q")
 
+        hideItem.target = self
+        menu.addItem(hideItem)
+        menu.addItem(.separator())
         exitItem.target = self
         menu.addItem(exitItem)
         item.submenu = menu
@@ -183,6 +191,11 @@ private final class MetronomeMenuController: NSObject {
     /// Handles the application menu's Exit command.
     @objc private func exitApplication() {
         NSApplication.shared.terminate(nil)
+    }
+
+    /// Handles the application menu's Hide command.
+    @objc private func hideMetronome() {
+        NSApplication.shared.hide(nil)
     }
 
     /// Toggles whether beat one in each four-beat group uses the accented click.
