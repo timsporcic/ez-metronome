@@ -35,15 +35,15 @@ EZ Metronome is a small native macOS metronome built with AppKit, SwiftUI, and A
 |   `-- Fonts/                   DSEG7 LCD font and its license
 |-- screenshots/                  UI screenshots used by the README/spec
 |-- reference/                    Original HTML/React visual prototype
-|-- site/                         Static landing page for downloading the app
+|-- site/                         Static landing page and release download
+|   `-- dist/                     Tracked release DMG installer
 |-- Tools/                        App-icon generation helpers
-|-- dist/                         Tracked release DMG installer
 |-- SPEC.md                       Original design and implementation handoff
 |-- LICENSE                       GPLv3 license text
 `-- README.md                     Project overview and build notes
 ```
 
-`DerivedData/` and `.DerivedData/` are local build output and are ignored by git. `dist/` is tracked intentionally so the repository can include the current release DMG for people who do not want to build the app locally.
+`DerivedData/` and `.DerivedData/` are local build output and are ignored by git. `site/dist/` is tracked intentionally so the repository can include the current release DMG for people who do not want to build the app locally.
 
 ## Requirements
 
@@ -84,10 +84,10 @@ The repo does not currently have a packaging script. A simple drag-to-Applicatio
 
 ```bash
 rm -rf .dmgroot
-mkdir -p .dmgroot dist
+mkdir -p .dmgroot site/dist
 ditto ".DerivedData/Build/Products/Release/EZ Metronome.app" ".dmgroot/EZ Metronome.app"
 ln -s /Applications .dmgroot/Applications
-hdiutil create -volname "EZ Metronome" -srcfolder .dmgroot -ov -format UDZO dist/Metronome-1.0.dmg
+hdiutil create -volname "EZ Metronome" -srcfolder .dmgroot -ov -format UDZO site/dist/EZMetronome-1.0.dmg
 rm -rf .dmgroot
 ```
 
