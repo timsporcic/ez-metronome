@@ -35,6 +35,7 @@ EZ Metronome is a small native macOS metronome built with AppKit, SwiftUI, and A
 |   `-- Fonts/                   DSEG7 LCD font and its license
 |-- screenshots/                  UI screenshots used by the README/spec
 |-- reference/                    Original HTML/React visual prototype
+|-- site/                         Static landing page for downloading the app
 |-- Tools/                        App-icon generation helpers
 |-- dist/                         Tracked release DMG installer
 |-- SPEC.md                       Original design and implementation handoff
