@@ -117,35 +117,68 @@ private final class MetronomeMenuController: NSObject {
         self.model = model
     }
 
-    /// Replaces the default AppKit menu with the custom Application, Options,
-    /// and Help menus used by EZ Metronome.
+    /// Replaces the default AppKit menu with the custom Application and Options
+    /// menus used by EZ Metronome.
     func install() {
         let mainMenu = NSMenu(title: "MainMenu")
         mainMenu.addItem(applicationMenuItem())
         mainMenu.addItem(optionsMenuItem())
-        mainMenu.addItem(helpMenuItem())
         NSApplication.shared.mainMenu = mainMenu
     }
 
-    /// Creates the application menu containing app visibility and Exit commands.
+    /// Creates the application menu containing standard macOS app commands.
     ///
     /// - Returns: A top-level menu item with an application submenu.
     private func applicationMenuItem() -> NSMenuItem {
         let item = NSMenuItem()
         let menu = NSMenu(title: "EZ Metronome")
+        let aboutItem = NSMenuItem(
+            title: "About EZ Metronome",
+            action: #selector(showApplicationInformation),
+            keyEquivalent: ""
+        )
+        let servicesMenu = NSMenu(title: "Services")
+        let servicesItem = NSMenuItem(title: "Services", action: nil, keyEquivalent: "")
         let hideItem = NSMenuItem(
-            title: "Hide the Metronome",
+            title: "Hide EZ Metronome",
             action: #selector(hideMetronome),
             keyEquivalent: "h"
         )
-        let exitItem = NSMenuItem(title: "Exit", action: #selector(exitApplication), keyEquivalent: "q")
+        let hideOthersItem = NSMenuItem(
+            title: "Hide Others",
+            action: #selector(hideOtherApplications),
+            keyEquivalent: "h"
+        )
+        let showAllItem = NSMenuItem(
+            title: "Show All",
+            action: #selector(showAllApplications),
+            keyEquivalent: ""
+        )
+        let quitItem = NSMenuItem(
+            title: "Quit EZ Metronome",
+            action: #selector(quitApplication),
+            keyEquivalent: "q"
+        )
 
+        aboutItem.target = self
+        servicesItem.submenu = servicesMenu
         hideItem.target = self
-        menu.addItem(hideItem)
+        hideOthersItem.target = self
+        hideOthersItem.keyEquivalentModifierMask = [.command, .option]
+        showAllItem.target = self
+        quitItem.target = self
+
+        menu.addItem(aboutItem)
         menu.addItem(.separator())
-        exitItem.target = self
-        menu.addItem(exitItem)
+        menu.addItem(servicesItem)
+        menu.addItem(.separator())
+        menu.addItem(hideItem)
+        menu.addItem(hideOthersItem)
+        menu.addItem(showAllItem)
+        menu.addItem(.separator())
+        menu.addItem(quitItem)
         item.submenu = menu
+        NSApplication.shared.servicesMenu = servicesMenu
         return item
     }
 
@@ -170,32 +203,24 @@ private final class MetronomeMenuController: NSObject {
         return item
     }
 
-    /// Creates the Help menu containing the app information dialog command.
-    ///
-    /// - Returns: A top-level menu item with a Help submenu.
-    private func helpMenuItem() -> NSMenuItem {
-        let item = NSMenuItem()
-        let menu = NSMenu(title: "Help")
-        let infoItem = NSMenuItem(
-            title: "Application Information",
-            action: #selector(showApplicationInformation),
-            keyEquivalent: ""
-        )
-
-        infoItem.target = self
-        menu.addItem(infoItem)
-        item.submenu = menu
-        return item
-    }
-
-    /// Handles the application menu's Exit command.
-    @objc private func exitApplication() {
+    /// Handles the application menu's Quit command.
+    @objc private func quitApplication() {
         NSApplication.shared.terminate(nil)
     }
 
     /// Handles the application menu's Hide command.
     @objc private func hideMetronome() {
         NSApplication.shared.hide(nil)
+    }
+
+    /// Handles the application menu's Hide Others command.
+    @objc private func hideOtherApplications() {
+        NSApplication.shared.hideOtherApplications(nil)
+    }
+
+    /// Handles the application menu's Show All command.
+    @objc private func showAllApplications() {
+        NSApplication.shared.unhideAllApplications(nil)
     }
 
     /// Toggles whether beat one in each four-beat group uses the accented click.

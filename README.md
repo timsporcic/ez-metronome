@@ -87,7 +87,7 @@ rm -rf .dmgroot
 mkdir -p .dmgroot site/dist
 ditto ".DerivedData/Build/Products/Release/EZ Metronome.app" ".dmgroot/EZ Metronome.app"
 ln -s /Applications .dmgroot/Applications
-hdiutil create -volname "EZ Metronome" -srcfolder .dmgroot -ov -format UDZO site/dist/EZMetronome-1.0.dmg
+hdiutil create -volname "EZ Metronome" -srcfolder .dmgroot -ov -format UDZO site/dist/EZMetronome-1.0.1.dmg
 rm -rf .dmgroot
 ```
 
