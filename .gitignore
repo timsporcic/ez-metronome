@@ -1,5 +1,5 @@
 DerivedData/
-dist/
+.DerivedData/
 *.xcuserstate
 xcuserdata/
 *.xcodeproj/xcuserdata/
