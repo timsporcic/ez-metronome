@@ -14,7 +14,7 @@ EZ Metronome is a small native macOS metronome built with AppKit, SwiftUI, and A
 - Up/down arrows increment and decrement tempo.
 - Audio clicks are generated at runtime with `AVAudioEngine` and scheduled on an `AVAudioPlayerNode`.
 - The first beat of each four-beat group can be accented from `Options > Accent First Beat`.
-- The app menu includes `Hide the Metronome`, `Exit`, and a Help item that shows version/build information.
+- The app menu includes standard application actions such as hide, quit and version information.
 
 ## Project Layout
 
@@ -49,9 +49,9 @@ EZ Metronome is a small native macOS metronome built with AppKit, SwiftUI, and A
 
 - Xcode 26.4.1 or a compatible Xcode version.
 - Swift 5.
-- macOS SDK/deployment target currently configured in the project: macOS 26.4.
+- macOS SDK/deployment target currently configured in the project: macOS 26.
 
-The current project settings build product version `1.0` and build number `1`.
+The current project settings build product version `1.0.1` and build number `1.0.1`.
 
 ## Build and Run
 
@@ -96,6 +96,8 @@ The app is currently signed by Xcode for local running. Developer ID signing and
 ## Reference Material
 
 `SPEC.md` contains the original detailed design handoff, including target dimensions, colors, interaction timing, audio behavior, and asset notes. The files in `reference/` are prototype/reference material, not production app code.
+
+The design was created using [Claude Design](https://claude.ai/design) and the implementation coded by [OpenAI Codex](https://openai.com/codex/) using [ChatGPT 5.5 High](https://openai.com/index/introducing-gpt-5-5/).
 
 ## License
 
